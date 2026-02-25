@@ -1,0 +1,14 @@
+[Unit]
+Description=noVNC Web Client Proxy
+After=weston.service
+
+[Service]
+Type=simple
+User=opc
+WorkingDirectory=/home/opc/litemode
+ExecStart=/bin/bash /home/opc/litemode/scripts/start-novnc.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

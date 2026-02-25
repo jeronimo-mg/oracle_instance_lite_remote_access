@@ -1,0 +1,16 @@
+[Unit]
+Description=Weston Wayland Compositor with VNC Backend
+After=network.target
+
+[Service]
+Type=simple
+User=opc
+WorkingDirectory=/home/opc/litemode
+ExecStart=/bin/bash /home/opc/litemode/scripts/start-weston.sh
+Restart=always
+RestartSec=5
+# Environment variables can also be set here
+Environment=XDG_RUNTIME_DIR=/tmp/weston-runtime
+
+[Install]
+WantedBy=multi-user.target
