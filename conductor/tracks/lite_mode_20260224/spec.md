@@ -1,11 +1,11 @@
 # Specification: Implement core lite-mode remote access system
 
 ## Overview
-Implement a lightweight, secure, and self-healing remote desktop system using x11vnc, noVNC, and Cloudflare Tunnel, including a basic management dashboard.
+Implement a lightweight, secure, and self-healing remote desktop system using Weston (Wayland), noVNC, and Cloudflare Tunnel, including a basic management dashboard.
 
 ## Scope
-- Configuration of XFCE desktop environment.
-- Setup and automation of x11vnc and noVNC services.
+- Configuration of Weston compositor with VNC backend.
+- Setup and automation of Weston and noVNC services.
 - Integration with Cloudflare Tunnel (cloudflared).
 - Creation of a React-based management dashboard.
 - Implementation of systemd services for self-healing.
@@ -15,3 +15,5 @@ Implement a lightweight, secure, and self-healing remote desktop system using x1
 - SQLite for configuration storage.
 - Python for service management logic.
 - React for the dashboard UI.
+- Weston with `vnc-backend` for remote display.
+

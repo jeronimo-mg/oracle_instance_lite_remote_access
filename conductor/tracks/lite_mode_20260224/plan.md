@@ -1,14 +1,13 @@
 # Implementation Plan: Implement core lite-mode remote access system
 
 ## Phase 1: Environment and System Services
-- [ ] Task: Configure XFCE and X11 display environment
-    - [ ] Install XFCE4 and essential components
-    - [ ] Configure virtual display server (Xvfb)
-- [ ] Task: Set up VNC and Web Client services
-    - [ ] Install and configure x11vnc
+- [~] Task: Configure Weston compositor environment
+    - [ ] Install Weston and essential components
+    - [ ] Configure Weston with VNC backend
+- [ ] Task: Set up noVNC web client service
     - [ ] Install and configure noVNC
 - [ ] Task: Implement systemd service units for self-healing
-    - [ ] Create x11vnc.service
+    - [ ] Create weston.service
     - [ ] Create novnc.service
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Environment and System Services' (Protocol in workflow.md)
 
