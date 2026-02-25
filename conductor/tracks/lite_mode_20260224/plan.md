@@ -24,8 +24,8 @@
 - [x] Task: Set up SQLite configuration storage (855c094)
     - [x] Define schema for service settings and logs
     - [x] Implement Python database wrapper
-- [ ] Task: Develop React Management Dashboard
+- [x] Task: Develop React Management Dashboard (5e10439)
+    - [x] Create UI for service status monitoring
+    - [x] Create UI for service controls (start/stop/restart)
 
-    - [ ] Create UI for service status monitoring
-    - [ ] Create UI for service controls (start/stop/restart)
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Management Dashboard and Storage' (Protocol in workflow.md)
