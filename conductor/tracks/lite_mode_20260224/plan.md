@@ -11,7 +11,7 @@
     - [x] Create novnc.service
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Environment and System Services' (Protocol in workflow.md)
 
-## Phase 2: Secure Access and Automation
+## Phase 2: Secure Access and Automation [checkpoint: 4bebaa7]
 - [x] Task: Integrate Tailscale (f92418a)
     - [x] Install Tailscale
     - [x] Authenticate and configure node for access
