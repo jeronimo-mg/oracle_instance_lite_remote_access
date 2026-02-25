@@ -2,8 +2,9 @@
 
 ## Setup and Automation
 - **Bash/Shell:** Primary for low-level system configuration and environment setup.
-- **Python:** For complex automation scripts and managing services.
+- **Python (FastAPI):** For complex automation scripts, managing services, and providing the backend API for the dashboard.
 - **Go/Rust:** Used for performance-critical CLI tools or system-level services.
+
 
 ## User Interface (UI)
 - **Wayland (Weston):** The core compositor for the remote desktop. Uses `weston-vnc` for remote access.
