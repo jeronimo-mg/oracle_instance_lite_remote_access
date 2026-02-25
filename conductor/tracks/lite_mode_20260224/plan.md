@@ -11,11 +11,12 @@
     - [x] Create novnc.service
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Environment and System Services' (Protocol in workflow.md)
 
-## Phase 2: Secure Tunneling and Automation
-- [ ] Task: Integrate Cloudflare Tunnel
-    - [ ] Install cloudflared
-    - [ ] Create and configure tunnel for noVNC access
+## Phase 2: Secure Access and Automation
+- [x] Task: Integrate Tailscale (f92418a)
+    - [x] Install Tailscale
+    - [x] Authenticate and configure node for access
 - [ ] Task: Develop Python-based service manager
+
     - [ ] Implement service health checks
     - [ ] Implement service restart logic
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Secure Tunneling and Automation' (Protocol in workflow.md)
