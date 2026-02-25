@@ -6,9 +6,9 @@
     - [x] Configure Weston with VNC backend
 - [x] Task: Set up noVNC web client service (af0d8a9)
     - [x] Install and configure noVNC
-- [ ] Task: Implement systemd service units for self-healing
-    - [ ] Create weston.service
-    - [ ] Create novnc.service
+- [x] Task: Implement systemd service units for self-healing (ce8bac4)
+    - [x] Create weston.service
+    - [x] Create novnc.service
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Environment and System Services' (Protocol in workflow.md)
 
 ## Phase 2: Secure Tunneling and Automation
