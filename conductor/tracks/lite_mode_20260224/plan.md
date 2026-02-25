@@ -1,6 +1,6 @@
 # Implementation Plan: Implement core lite-mode remote access system
 
-## Phase 1: Environment and System Services
+## Phase 1: Environment and System Services [checkpoint: 13a0e07]
 - [x] Task: Configure Weston compositor environment (789118f)
     - [x] Install Weston and essential components
     - [x] Configure Weston with VNC backend
