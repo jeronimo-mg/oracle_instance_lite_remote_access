@@ -2,10 +2,10 @@
 
 ## Phase 1: Environment and System Services
 - [x] Task: Configure Weston compositor environment (789118f)
-    - [ ] Install Weston and essential components
-    - [ ] Configure Weston with VNC backend
-- [ ] Task: Set up noVNC web client service
-    - [ ] Install and configure noVNC
+    - [x] Install Weston and essential components
+    - [x] Configure Weston with VNC backend
+- [x] Task: Set up noVNC web client service (af0d8a9)
+    - [x] Install and configure noVNC
 - [ ] Task: Implement systemd service units for self-healing
     - [ ] Create weston.service
     - [ ] Create novnc.service
