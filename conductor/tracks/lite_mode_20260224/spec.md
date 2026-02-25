@@ -6,9 +6,10 @@ Implement a lightweight, secure, and self-healing remote desktop system using We
 ## Scope
 - Configuration of Weston compositor with VNC backend.
 - Setup and automation of Weston and noVNC services.
-- Integration with Cloudflare Tunnel (cloudflared).
+- Integration with Tailscale for secure private access.
 - Creation of a React-based management dashboard.
 - Implementation of systemd services for self-healing.
+
 
 ## Technical Requirements
 - Native Linux services (systemd).
