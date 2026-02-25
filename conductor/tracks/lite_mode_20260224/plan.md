@@ -15,11 +15,10 @@
 - [x] Task: Integrate Tailscale (f92418a)
     - [x] Install Tailscale
     - [x] Authenticate and configure node for access
-- [ ] Task: Develop Python-based service manager
-
-    - [ ] Implement service health checks
-    - [ ] Implement service restart logic
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Secure Tunneling and Automation' (Protocol in workflow.md)
+- [x] Task: Develop Python-based service manager (1cff4b5)
+    - [x] Implement service health checks
+    - [x] Implement service restart logic
+- [ ] Task: Conductor - User Manual Verification 'Phase 2: Secure Access and Automation' (Protocol in workflow.md)
 
 ## Phase 3: Management Dashboard and Storage
 - [ ] Task: Set up SQLite configuration storage
