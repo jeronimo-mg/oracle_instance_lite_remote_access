@@ -16,8 +16,6 @@ This project sets up a "lite mode" of the [easi-remote-access](https://github.co
 
 ## Key Features
 - **noVNC Web Client:** Web-based VNC client for browser access.
-- **Cloudflare Tunnel:** Secure tunneling to expose the service without port forwarding.
-- **x11vnc Server:** A simple and fast VNC server for Linux.
-
-## Desktop Environment
-- **XFCE:** A lightweight and fast desktop environment to ensure minimal resource usage.
+- **Cloudflare Tunnel:** Public access via temporary or permanent tunnels without port forwarding.
+- **Tailscale:** Private networking for secure, authenticated access to the dashboard and services.
+- **Weston (Wayland):** A modern, lightweight compositor with native VNC support for a fast remote desktop experience.
