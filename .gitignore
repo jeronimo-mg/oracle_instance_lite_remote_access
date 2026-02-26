@@ -1,2 +1,7 @@
 __pycache__/
 .coverage
+*.log
+litemode.db
+node_modules/
+dist/
+.env

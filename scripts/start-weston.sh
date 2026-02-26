@@ -14,7 +14,8 @@ chmod 700 "$XDG_RUNTIME_DIR"
 # Launch weston
 weston \
     --backend=vnc \
-    --shell=kiosk-shell.so \
+    --shell=desktop-shell.so \
+    --config=/home/opc/litemode/configs/weston.ini \
     --port=5900 \
     --width=1280 \
     --height=1024 \

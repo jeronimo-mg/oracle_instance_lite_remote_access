@@ -1,8 +1,13 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+import os
+import sys
+
+# Add the 'src' directory to the Python path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 from manager.service_manager import ServiceManager
 from manager.db import DatabaseManager
-import os
 
 app = FastAPI()
 
