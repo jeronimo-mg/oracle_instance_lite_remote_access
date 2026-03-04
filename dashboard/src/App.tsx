@@ -18,7 +18,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const API_URL = `http://${window.location.hostname}:8000`;
+  const API_URL = window.location.origin;
 
   const fetchData = async () => {
     try {

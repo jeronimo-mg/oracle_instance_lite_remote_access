@@ -18,6 +18,6 @@ weston \
     --config=/home/opc/litemode/configs/weston.ini \
     --port=5900 \
     --width=1280 \
-    --height=1024 \
+    --height=720 \
     --disable-transport-layer-security \
     --log=/tmp/weston.log

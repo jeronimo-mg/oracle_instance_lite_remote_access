@@ -54,11 +54,25 @@ O projeto está organizado da seguinte forma:
    ```
 
 ### Executando os Serviços
-Você pode usar os scripts na pasta `scripts/` para iniciar os componentes manualmente ou configurar os serviços do systemd.
+Você pode iniciar todos os componentes de uma vez usando o script principal:
 
+1. Iniciar tudo:
+   ```bash
+   ./scripts/start-all.sh
+   ```
+   *O script irá configurar o ambiente, iniciar os serviços e exibir os URLs de acesso (Dashboard e Desktop) gerados via Cloudflare Tunnel.*
+
+2. Parar tudo:
+   ```bash
+   ./scripts/stop-all.sh
+   ```
+
+### Scripts Individuais (Opcional)
+Se preferir gerenciar os componentes manualmente:
 - Iniciar Desktop (Weston): `./scripts/start-weston.sh`
 - Iniciar Web VNC: `./scripts/start-novnc.sh`
 - Iniciar API: `./scripts/start-api.sh`
+- Iniciar Túnel API: `./scripts/run-tunnel.sh`
 
 ## 🔒 Segurança
 O projeto utiliza túneis e redes privadas para evitar a exposição direta de portas sensíveis à internet. Certifique-se de configurar corretamente seu token do Cloudflare ou sua rede Tailscale.
