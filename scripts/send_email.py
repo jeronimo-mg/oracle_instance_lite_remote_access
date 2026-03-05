@@ -1,62 +1,61 @@
 import smtplib
+import sys
 import os
-import re
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-# --- CONFIGURAÇÃO (Preencha aqui ou via variáveis de ambiente) ---
-SMTP_SERVER = "smtp.gmail.com"
-SMTP_PORT = 587
-SENDER_EMAIL = os.environ.get("SENDER_EMAIL", "seu-email@gmail.com")
-SENDER_PASSWORD = os.environ.get("SENDER_PASSWORD", "sua-senha-de-app")
-RECEIVER_EMAIL = os.environ.get("RECEIVER_EMAIL", "seu-email@gmail.com")
+def send_notification(dashboard_url, vnc_url):
+    sender_email = "jeronimo.moraes.gomes@gmail.com"
+    receiver_email = "jeronimo.gomes@marinha.mil.br"
+    password = "glzh zuqu ervs yqbs" # App Password
 
-def get_urls():
-    links = {"dash": "", "vnc": ""}
-    try:
-        with open("/home/opc/litemode/tunnel.log", "r") as f:
-            match = re.search(r"https://[a-zA-Z0-9.-]+\.trycloudflare\.com", f.read())
-            if match: links["dash"] = match.group(0)
-            
-        with open("/home/opc/litemode/tunnel-vnc.log", "r") as f:
-            match = re.search(r"https://[a-zA-Z0-9.-]+\.trycloudflare\.com", f.read())
-            if match: links["vnc"] = match.group(0)
-    except Exception as e:
-        print(f"Erro ao ler logs: {e}")
-    return links
+    message = MIMEMultipart("alternative")
+    message["Subject"] = "🚀 LiteMode: Serviços Iniciados com Sucesso!"
+    message["From"] = f"LiteMode Admin <{sender_email}>"
+    message["To"] = receiver_email
 
-def send_email():
-    urls = get_urls()
-    if not urls["dash"] or not urls["vnc"]:
-        print("Links ainda não gerados. Abortando envio de e-mail.")
-        return
+    text = f"""
+    Olá, os serviços do LiteMode foram iniciados.
 
-    msg = MIMEMultipart()
-    msg['From'] = SENDER_EMAIL
-    msg['To'] = RECEIVER_EMAIL
-    msg['Subject'] = "🚀 LiteMode: Seus links de acesso remoto"
+    Dashboard: {dashboard_url}
+    Desktop (noVNC): {vnc_url}/vnc.html
 
-    body = f"""
-    Olá! Seus serviços LiteMode foram iniciados com sucesso.
-
-    📊 Dashboard de Gerenciamento: {urls['dash']}
-    🖥️ Desktop Remoto (noVNC): {urls['vnc']}/vnc.html
-
-    ---
-    Gerado automaticamente pela instância Oracle Cloud.
+    Atenciosamente,
+    LiteMode System
     """
-    
-    msg.attach(MIMEText(body, 'plain'))
+
+    html = f"""
+    <html>
+      <body style="font-family: sans-serif; color: #333;">
+        <h2 style="color: #3b82f6;">🚀 LiteMode: Serviços Online</h2>
+        <p>Os serviços do sistema foram iniciados e estão prontos para acesso.</p>
+        <div style="background: #f1f5f9; padding: 20px; border-radius: 8px;">
+          <p><strong>Dashboard de Gerenciamento:</strong><br>
+          <a href="{dashboard_url}" style="color: #3b82f6;">{dashboard_url}</a></p>
+          <p><strong>Desktop Remoto (noVNC):</strong><br>
+          <a href="{vnc_url}/vnc.html" style="color: #3b82f6;">{vnc_url}/vnc.html</a></p>
+        </div>
+        <p style="font-size: 0.8em; color: #64748b; margin-top: 20px;">
+          Oracle Instance Lite Remote Access
+        </p>
+      </body>
+    </html>
+    """
+
+    message.attach(MIMEText(text, "plain"))
+    message.attach(MIMEText(html, "html"))
 
     try:
-        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-        server.starttls()
-        server.login(SENDER_EMAIL, SENDER_PASSWORD)
-        server.send_message(msg)
-        server.quit()
-        print("E-mail enviado com sucesso!")
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message.as_string())
+        print("E-mail de notificação enviado com sucesso.")
     except Exception as e:
-        print(f"Falha ao enviar e-mail: {e}")
+        print(f"Erro ao enviar e-mail: {e}", file=sys.stderr)
 
 if __name__ == "__main__":
-    send_email()
+    if len(sys.argv) < 3:
+        print("Uso: python3 send_email.py <dashboard_url> <vnc_url>")
+        sys.exit(1)
+    
+    send_notification(sys.argv[1], sys.argv[2])

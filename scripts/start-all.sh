@@ -44,6 +44,10 @@ mkdir -p /home/opc/Desktop
 echo -e "--- LITEMODE DASHBOARD ---\n\n$URL_DASH\n" > /home/opc/Desktop/LINKS.txt
 chmod 666 /home/opc/Desktop/LINKS.txt
 
+# 7. Enviar Notificação por E-mail
+echo "Enviando notificação por e-mail..."
+python3 /home/opc/litemode/scripts/send_email.py "$URL_DASH" "$URL_VNC"
+
 echo "----------------------------------------------------------------"
 echo "LiteMode iniciado com sucesso!"
 echo "Acesse o Dashboard em: $URL_DASH"
