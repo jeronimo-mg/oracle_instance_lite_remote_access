@@ -74,6 +74,11 @@ Se preferir gerenciar os componentes manualmente:
 - Iniciar API: `./scripts/start-api.sh`
 - Iniciar Túnel API: `./scripts/run-tunnel.sh`
 
+## 📂 Transferência de Arquivos
+O Dashboard permite a troca de arquivos entre sua máquina local e a instância remota:
+- **Upload:** Os arquivos enviados pelo Dashboard são salvos na pasta `uploads/` na raiz do projeto.
+- **Download:** Qualquer arquivo colocado manualmente na pasta `uploads/` da instância aparecerá no Dashboard para download em sua máquina local.
+
 ## 🔒 Segurança
 O projeto utiliza túneis e redes privadas para evitar a exposição direta de portas sensíveis à internet. Certifique-se de configurar corretamente seu token do Cloudflare ou sua rede Tailscale.
 
