@@ -1,13 +1,24 @@
 import smtplib
 import sys
 import os
+import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+
+LOG_FILE = "/home/opc/litemode/email_send.log"
+
+def log_message(message):
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open(LOG_FILE, "a") as f:
+        f.write(f"[{timestamp}] {message}\n")
 
 def send_notification(dashboard_url, vnc_url):
     sender_email = "jeronimo.moraes.gomes@gmail.com"
     receiver_email = "jeronimo.gomes@marinha.mil.br"
     password = "glzh zuqu ervs yqbs" # App Password
+
+    log_message(f"Iniciando tentativa de envio de e-mail para {receiver_email}")
+    log_message(f"URLs: Dashboard={dashboard_url}, VNC={vnc_url}")
 
     message = MIMEMultipart("alternative")
     message["Subject"] = "🚀 LiteMode: Serviços Iniciados com Sucesso!"
@@ -49,12 +60,16 @@ def send_notification(dashboard_url, vnc_url):
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
             server.login(sender_email, password)
             server.sendmail(sender_email, receiver_email, message.as_string())
+        log_message("E-mail de notificação enviado com sucesso.")
         print("E-mail de notificação enviado com sucesso.")
     except Exception as e:
-        print(f"Erro ao enviar e-mail: {e}", file=sys.stderr)
+        error_msg = f"Erro ao enviar e-mail: {e}"
+        log_message(error_msg)
+        print(error_msg, file=sys.stderr)
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
+        log_message("Erro: Argumentos insuficientes fornecidos ao script.")
         print("Uso: python3 send_email.py <dashboard_url> <vnc_url>")
         sys.exit(1)
     

@@ -46,9 +46,16 @@ chmod 666 /home/opc/Desktop/LINKS.txt
 
 # 7. Enviar Notificação por E-mail
 echo "Enviando notificação por e-mail..."
-python3 /home/opc/litemode/scripts/send_email.py "$URL_DASH" "$URL_VNC"
+if [ -z "$URL_DASH" ] || [ -z "$URL_VNC" ]; then
+    echo "ERRO: Uma ou ambas as URLs não foram encontradas após 30 segundos." >> /home/opc/litemode/start-all.log
+    echo "URL_DASH: '$URL_DASH'" >> /home/opc/litemode/start-all.log
+    echo "URL_VNC: '$URL_VNC'" >> /home/opc/litemode/start-all.log
+else
+    python3 /home/opc/litemode/scripts/send_email.py "$URL_DASH" "$URL_VNC" >> /home/opc/litemode/start-all.log 2>&1
+fi
 
 echo "----------------------------------------------------------------"
+echo "LiteMode iniciado com sucesso! [$(date)]" >> /home/opc/litemode/start-all.log
 echo "LiteMode iniciado com sucesso!"
 echo "Acesse o Dashboard em: $URL_DASH"
 echo "Acesse o Desktop em: $URL_VNC/vnc.html"

@@ -7,5 +7,6 @@ pkill -f "novnc_proxy"
 pkill -f "websockify"
 pkill -f "api/main.py"
 pkill -f "cloudflared tunnel"
+rm -f /home/opc/litemode/tunnel.log
 rm -f /home/opc/litemode/tunnel-vnc.log
 echo "Serviços parados."

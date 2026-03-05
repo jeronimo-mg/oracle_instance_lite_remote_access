@@ -1,0 +1,14 @@
+[Unit]
+Description=LiteMode Auto-Start Services
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=opc
+WorkingDirectory=/home/opc/litemode
+ExecStart=/home/opc/litemode/scripts/start-all.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
