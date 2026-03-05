@@ -95,7 +95,10 @@ if os.path.exists(NOVNC_DIR):
 # Serve Dashboard at /dashboard
 if os.path.exists(DASHBOARD_DIR):
     app.mount("/dashboard", StaticFiles(directory=DASHBOARD_DIR, html=True), name="dashboard")
+    # Redirect legacy /assets if needed, but the relative base in Vite should solve this.
+
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8001)
+
