@@ -1,10 +1,11 @@
-from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi import FastAPI, HTTPException, UploadFile, File, Header, Depends
 from fastapi.responses import FileResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 import os
 import sys
 import shutil
+from typing import Optional
 
 # Add the 'src' directory to the Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
@@ -19,6 +20,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
 DASHBOARD_DIR = os.path.join(BASE_DIR, "dashboard/dist")
 NOVNC_DIR = "/usr/share/novnc"
+
+# Password configuration (default to 'admin123' if not set)
+DASHBOARD_PASSWORD = os.environ.get("DASHBOARD_PASSWORD", "admin123")
 
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
@@ -39,11 +43,28 @@ db.init_db()
 service_names = ['weston.service', 'novnc.service', 'tailscaled.service']
 manager = ServiceManager(services=service_names)
 
-@app.get("/services")
+# --- Authentication Dependency ---
+
+async def verify_auth(x_dashboard_key: Optional[str] = Header(None)):
+    if x_dashboard_key != DASHBOARD_PASSWORD:
+        raise HTTPException(status_code=401, detail="Invalid Dashboard Key")
+    return x_dashboard_key
+
+# --- Auth Endpoints ---
+
+@app.post("/login")
+async def login(data: dict):
+    password = data.get("password")
+    if password == DASHBOARD_PASSWORD:
+        return {"status": "success", "token": DASHBOARD_PASSWORD}
+    else:
+        raise HTTPException(status_code=401, detail="Incorrect password")
+
+@app.get("/services", dependencies=[Depends(verify_auth)])
 async def get_services():
     return manager.get_all_statuses()
 
-@app.post("/services/{name}/restart")
+@app.post("/services/{name}/restart", dependencies=[Depends(verify_auth)])
 async def restart_service(name: str):
     if name not in service_names:
         raise HTTPException(status_code=404, detail="Service not found")
@@ -55,13 +76,13 @@ async def restart_service(name: str):
     else:
         raise HTTPException(status_code=500, detail="Failed to restart service")
 
-@app.get("/logs")
+@app.get("/logs", dependencies=[Depends(verify_auth)])
 async def get_logs(limit: int = 50):
     return db.get_logs(limit=limit)
 
 # --- File Transfer Endpoints ---
 
-@app.post("/upload")
+@app.post("/upload", dependencies=[Depends(verify_auth)])
 async def upload_file(file: UploadFile = File(...)):
     file_path = os.path.join(UPLOAD_DIR, file.filename)
     with open(file_path, "wb") as buffer:
@@ -69,12 +90,12 @@ async def upload_file(file: UploadFile = File(...)):
     db.add_log("system", f"File uploaded: {file.filename}")
     return {"filename": file.filename, "status": "success"}
 
-@app.get("/files")
+@app.get("/files", dependencies=[Depends(verify_auth)])
 async def list_files():
     files = os.listdir(UPLOAD_DIR)
     return {"files": files}
 
-@app.get("/download/{filename}")
+@app.get("/download/{filename}", dependencies=[Depends(verify_auth)])
 async def download_file(filename: str):
     file_path = os.path.join(UPLOAD_DIR, filename)
     if not os.path.exists(file_path):
@@ -101,4 +122,5 @@ if os.path.exists(DASHBOARD_DIR):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
+
 

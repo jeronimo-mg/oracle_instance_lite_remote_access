@@ -18,5 +18,8 @@ done
 
 [ -z "$URL" ] && URL="Aguardando link do Cloudflare..."
 
-# Abre o terminal exibindo o link. 
-/usr/bin/weston-terminal --command="bash -c \"clear; echo -e '\n\n   --- LITEMODE DASHBOARD LINK ---\n\n   $URL\n\n   (Copie este link para seu navegador local)\n\n'; read -p 'Pressione Enter para fechar...'\""
+# Abre o terminal de uso geral (em background)
+/usr/bin/weston-terminal &
+
+# Abre o terminal exibindo o link (este trava a execução do script até ser fechado)
+/usr/bin/weston-terminal --command="bash -c \"clear; echo -e '\n\n   --- LITEMODE DASHBOARD LINK ---\n\n   $URL\n\n   (Copie este link para seu navegador local)\n\n'; read -p 'Pressione Enter para fechar esta janela de aviso...'\""
