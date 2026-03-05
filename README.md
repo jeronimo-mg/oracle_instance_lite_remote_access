@@ -67,12 +67,10 @@ Você pode iniciar todos os componentes de uma vez usando o script principal:
    ./scripts/stop-all.sh
    ```
 
-### Scripts Individuais (Opcional)
-Se preferir gerenciar os componentes manualmente:
-- Iniciar Desktop (Weston): `./scripts/start-weston.sh`
-- Iniciar Web VNC: `./scripts/start-novnc.sh`
-- Iniciar API: `./scripts/start-api.sh`
-- Iniciar Túnel API: `./scripts/run-tunnel.sh`
+### Serviços Automatizados (Systemd)
+O projeto inclui unidades do systemd para garantir que os serviços iniciem automaticamente no boot e se recuperem de falhas:
+- **`litemode-autostart.service`**: Gerencia a inicialização completa de todos os componentes (Weston, noVNC, API e Túneis).
+- **Ambiente Configurado**: Garante que o shell `bash` seja carregado com o ambiente do usuário (`PATH`, `HOME`, `SHELL`) corretamente definido para evitar problemas no prompt do terminal remoto.
 
 ## 📂 Transferência de Arquivos
 O Dashboard permite a troca de arquivos entre sua máquina local e a instância remota:

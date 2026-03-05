@@ -1,6 +1,9 @@
 #!/bin/bash
 # Script para iniciar todos os serviços do LiteMode de forma limpa
 
+export SHELL=/bin/bash
+export PATH=/home/opc/.local/bin:/home/opc/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd "$DIR/.."
 
@@ -27,7 +30,7 @@ sleep 2
 # 5. Iniciar Túneis Cloudflare
 echo "Iniciando Túneis Cloudflare..."
 ./scripts/run-tunnel.sh
-nohup cloudflared tunnel --url http://127.0.0.1:6080 > /home/opc/litemode/tunnel-vnc.log 2>&1 &
+nohup cloudflared tunnel --protocol http2 --url http://127.0.0.1:6080 > /home/opc/litemode/tunnel-vnc.log 2>&1 &
 sleep 10
 
 # 6. Mostrar URLs e Salvar na Área de Trabalho

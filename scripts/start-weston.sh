@@ -1,8 +1,9 @@
 #!/bin/bash
 # Start Weston with VNC backend
 
-# Set runtime directory
+# Set environment variables
 export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/tmp/weston-runtime}
+export SHELL=/bin/bash
 mkdir -p "$XDG_RUNTIME_DIR"
 chmod 700 "$XDG_RUNTIME_DIR"
 
