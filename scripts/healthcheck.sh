@@ -9,22 +9,20 @@ check_process() {
     return $?
 }
 
-# 1. Verifica os processos essenciais
-check_process "weston --backend=vnc"
+# 1. Verifica os processos essenciais usando caminhos precisos
+pgrep -f "weston --backend=vnc" > /dev/null
 WESTON_OK=$?
 
-check_process "novnc_proxy"
+pgrep -f "novnc_proxy.*6080" > /dev/null
 NOVNC_OK=$?
 
-check_process "api/main.py"
+pgrep -f "python3 src/api/main.py" > /dev/null
 API_OK=$?
 
-check_process "cloudflared tunnel"
-TUNNEL_OK=$?
-
 # 2. Avalia a saúde geral
-if [ $WESTON_OK -ne 0 ] || [ $NOVNC_OK -ne 0 ] || [ $API_OK -ne 0 ] || [ $TUNNEL_OK -ne 0 ]; then
-    echo "[$(date)] FALHA DETECTADA: Weston:$WESTON_OK, noVNC:$NOVNC_OK, API:$API_OK, Tunnel:$TUNNEL_OK. Reiniciando..." >> $LOG
+# echo "DEBUG: Weston:$WESTON_OK, noVNC:$NOVNC_OK, API:$API_OK" >> /tmp/hc_debug.log
+if [ $WESTON_OK -ne 0 ] || [ $NOVNC_OK -ne 0 ] || [ $API_OK -ne 0 ]; then
+    echo "[$(date)] FALHA DETECTADA: Weston:$WESTON_OK, noVNC:$NOVNC_OK, API:$API_OK. Reiniciando..." >> $LOG
     /home/opc/litemode/scripts/start-all.sh >> $LOG 2>&1
 else
     # Opcional: apenas logar sucessos a cada hora para não encher o log

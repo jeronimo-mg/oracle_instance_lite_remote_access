@@ -59,7 +59,7 @@ done
 
 # 7. Verificar se os processos principais estão realmente vivos
 WESTON_RUNNING=$(pgrep -f "weston --backend=vnc")
-API_RUNNING=$(pgrep -f "api/main.py")
+API_RUNNING=$(pgrep -f "python3 src/api/main.py")
 
 if [ -z "$WESTON_RUNNING" ] || [ -z "$API_RUNNING" ]; then
     echo "ERRO: Falha ao iniciar serviços críticos (Weston ou API)." >> /home/opc/litemode/start-all.log

@@ -11,7 +11,7 @@ Environment="SHELL=/bin/bash"
 Environment="HOME=/home/opc"
 Environment="PATH=/home/opc/.local/bin:/home/opc/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
 Environment="NODE_OPTIONS=--max-old-space-size=2048"
-Environment="DASHBOARD_PASSWORD=admin123"
+Environment="DASHBOARD_PASSWORD=pantos10"
 ExecStart=/bin/bash /home/opc/litemode/scripts/start-all.sh
 RemainAfterExit=yes
 
