@@ -77,8 +77,27 @@ O Dashboard permite a troca de arquivos entre sua máquina local e a instância 
 - **Upload:** Os arquivos enviados pelo Dashboard são salvos na pasta `uploads/` na raiz do projeto.
 - **Download:** Qualquer arquivo colocado manualmente na pasta `uploads/` da instância aparecerá no Dashboard para download em sua máquina local.
 
-## 🔒 Segurança
-O projeto utiliza túneis e redes privadas para evitar a exposição direta de portas sensíveis à internet. Certifique-se de configurar corretamente seu token do Cloudflare ou sua rede Tailscale.
+## 🔒 Segurança e Acesso
+
+O LiteMode agora inclui proteção por senha para o Dashboard e utiliza túneis para evitar a exposição de portas.
+
+### Configuração de Senha do Dashboard
+Por padrão, o Dashboard é protegido pela senha `admin123`. Você pode alterar essa senha definindo a variável de ambiente `DASHBOARD_PASSWORD`.
+
+1. **Alteração Temporária (Sessão Atual):**
+   ```bash
+   export DASHBOARD_PASSWORD="sua_nova_senha"
+   ./scripts/start-all.sh
+   ```
+
+2. **Alteração Permanente (Recomendado):**
+   Edite seu arquivo `~/.bashrc` ou adicione a variável diretamente no arquivo de serviço do systemd em `systemd/litemode-autostart.service`:
+   ```ini
+   Environment="DASHBOARD_PASSWORD=sua_nova_senha"
+   ```
+
+### Acesso ao Desktop Remoto (VNC)
+O acesso ao Desktop via noVNC utiliza o link público gerado pelo Cloudflare. Para segurança adicional, o acesso é feito através de uma URL dinâmica e única a cada inicialização, enviada para o seu e-mail configurado.
 
 ---
 Desenvolvido para uso pessoal e gerenciamento remoto eficiente.
